@@ -8,6 +8,10 @@ struct user{
 
 int users_count = 0; // đếm mảng users tăng dần
 
+bool has_user_name_in_head(string str) {
+    // nếu 
+}
+
 bool check_colon(string str) {
     if (str.find(':') == string::npos) return false;
     else return true;
@@ -55,16 +59,21 @@ void read_from_file(const string &filename, user *users) {
     // tách tên ra
     string line;
     while (getline(file, line)) {
-        users[users_count].user_name = extract_name(line);
-        users[users_count].phone_number = extract_phone_number(line);
-        users_count++;
+        if (extract_name(line) != "") {
+            users[users_count].user_name = extract_name(line);
+            users[users_count].phone_number = extract_phone_number(line);
+            users_count++;
+
+        }
     }
     file.close();
 }
 
 void print_users_name(user *users) {
     for (int i = 0; i < users_count; i++) {
-        cout << users[i].user_name << ": " <<  users[i].phone_number << '\n';
+        bool check = users[i].user_name != "" && users[i].phone_number != ""; // user thiếu một trong 2 thông tin sẽ không được in ra
+        if (check)
+            cout << users[i].user_name << ": " <<  users[i].phone_number << '\n';
     }
 }
 
